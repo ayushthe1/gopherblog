@@ -9,6 +9,7 @@ import (
 
 	"github.com/ayushthe1/blog-backend/database"
 	"github.com/ayushthe1/blog-backend/models"
+	util "github.com/ayushthe1/blog-backend/utils"
 	"github.com/go-playground/validator/v10"
 	"github.com/gofiber/fiber/v2"
 )
