@@ -1,1 +1,1 @@
-package controllers
+package controller
