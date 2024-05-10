@@ -1,6 +1,8 @@
 package controller
 
 import (
+	"context"
+	"encoding/json"
 	"errors"
 	"fmt"
 	"log"
@@ -46,8 +48,44 @@ func AllPost(c *fiber.Ctx) error {
 	offset := (page - 1) * limit
 	var total int64
 	var getblog []models.Blog
-	database.DB.Preload("User").Offset(offset).Limit(limit).Find(&getblog)
-	database.DB.Model(&models.Blog{}).Count(&total)
+
+	// Retrieve data from redis, if not available then from mysql
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer cancel()
+
+	cachedData, errR := database.RedisClient.Get(ctx, "products").Bytes()
+	if cachedData != nil {
+		if err := json.Unmarshal(cachedData, &getblog); err != nil {
+			log.Println("Error unmarshalling cached data:", err)
+			return err
+			// Handle unmarshalling error
+			// For example, fallback to fetching from MySQL
+		}
+		log.Println("Getting data from redis , getBlog :", getblog)
+	}
+
+	if errR != nil {
+		log.Println("getting data from mysql")
+		database.DB.Preload("User").Offset(offset).Limit(limit).Find(&getblog)
+		database.DB.Model(&models.Blog{}).Count(&total)
+
+		cachedProducts, err := json.Marshal(getblog)
+		if err != nil {
+			log.Println("Error marshalling getblog")
+			return err
+		}
+
+		err = database.RedisClient.Set(ctx, "products", cachedProducts, 300*time.Second).Err()
+
+		if err != nil {
+			log.Println("err in redis all post", err.Error())
+			return err
+		}
+		log.Println("Data cached in redis")
+	}
+
+	// database.DB.Preload("User").Offset(offset).Limit(limit).Find(&getblog)
+	// database.DB.Model(&models.Blog{}).Count(&total)
 	return c.JSON(fiber.Map{
 		"data": getblog,
 		"meta": fiber.Map{

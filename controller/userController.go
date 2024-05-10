@@ -1,6 +1,7 @@
 package controller
 
 import (
+	"context"
 	"fmt"
 	"log"
 	"net/http"
@@ -16,6 +17,27 @@ import (
 )
 
 var validate = validator.New()
+
+func RedisTest(c *fiber.Ctx) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
+	defer cancel()
+
+	key := c.Query("key")
+
+	val, err := database.RedisClient.Get(ctx, key).Result()
+	if err != nil {
+		c.Status(400)
+		log.Println("err in redis", err.Error())
+		return c.JSON(fiber.Map{
+			"message": "Error in redis while getting key",
+		})
+	}
+
+	return c.JSON(fiber.Map{
+		"message from redis": val,
+	})
+
+}
 
 func Signup(c *fiber.Ctx) error {
 
