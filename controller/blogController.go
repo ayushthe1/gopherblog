@@ -3,8 +3,10 @@ package controller
 import (
 	"errors"
 	"fmt"
+	"log"
 	"math"
 	"strconv"
+	"time"
 
 	"github.com/ayushthe1/blog-backend/database"
 	"github.com/ayushthe1/blog-backend/models"
@@ -15,17 +17,14 @@ import (
 )
 
 func CreatePost(c *fiber.Ctx) error {
+	log.Println("Inside create post")
 	var blogpost models.Blog
 	if err := c.BodyParser(&blogpost); err != nil {
 		fmt.Println("Unable to parse body")
+		return err
 	}
 
-	validationErr := validate.Struct(blogpost)
-	if validationErr != nil {
-		c.Status(fiber.StatusBadRequest)
-		return c.JSON(fiber.Map{"error": validationErr.Error()})
-
-	}
+	blogpost.Created_at, _ = time.Parse(time.RFC3339, time.Now().Format(time.RFC3339))
 
 	if err := database.DB.Create(&blogpost).Error; err != nil {
 		c.Status(400)
@@ -33,6 +32,8 @@ func CreatePost(c *fiber.Ctx) error {
 			"message": "Invalid payload",
 		})
 	}
+
+	log.Println("blog created successfully")
 	return c.JSON(fiber.Map{
 		"message": "Congratulation!, Your post is live",
 	})
@@ -41,7 +42,7 @@ func CreatePost(c *fiber.Ctx) error {
 
 func AllPost(c *fiber.Ctx) error {
 	page, _ := strconv.Atoi(c.Query("page", "1"))
-	limit := 5
+	limit := 10
 	offset := (page - 1) * limit
 	var total int64
 	var getblog []models.Blog
@@ -59,15 +60,17 @@ func AllPost(c *fiber.Ctx) error {
 }
 
 func DetailPost(c *fiber.Ctx) error {
-	id, _ := strconv.Atoi(c.Params("id"))
+	blogid, _ := strconv.Atoi(c.Params("id"))
 	var blogpost models.Blog
-	database.DB.Where("id=?", id).Preload("User").First(&blogpost)
+	database.DB.Where("id=?", blogid).Preload("User").First(&blogpost)
+	log.Println(blogpost.Created_at)
 	return c.JSON(fiber.Map{
 		"data": blogpost,
 	})
 
 }
 
+//?  add logic to update the image which is received
 func UpdatePost(c *fiber.Ctx) error {
 	id, _ := strconv.Atoi(c.Params("id"))
 	blog := models.Blog{
@@ -84,11 +87,20 @@ func UpdatePost(c *fiber.Ctx) error {
 
 }
 
+// return posts created by that user only
 func UniquePost(c *fiber.Ctx) error {
+	log.Println("inside unique post")
 	cookie := c.Cookies("jwt")
-	id, _ := util.Parsejwt(cookie)
+	id, err := util.Parsejwt(cookie)
+
+	if err != nil {
+		log.Println(err.Error())
+		return err
+	}
+
 	var blog []models.Blog
-	database.DB.Model(&blog).Where("user_id=?", id).Preload("User").Find(&blog)
+	// database.DB.Model(&blog).Where("user_id=?", id).Preload("User").Find(&blog)
+	database.DB.Where("user_id=?", id).Preload("User").Find(&blog)
 
 	return c.JSON(blog)
 

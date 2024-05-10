@@ -7,8 +7,11 @@ import (
 )
 
 func Setup(app *fiber.App) {
-	app.Post("/api/register", controller.Register)
+	app.Post("/api/register", controller.Signup)
 	app.Post("/api/login", controller.Login)
+
+	// display all posts on the home page for all users
+	// app.Get("/api/")
 
 	app.Use(middleware.IsAuthenticate)
 	app.Post("/api/post", controller.CreatePost)
@@ -18,6 +21,7 @@ func Setup(app *fiber.App) {
 	app.Get("/api/uniquepost", controller.UniquePost)
 	app.Delete("/api/deletepost/:id", controller.DeletePost)
 	app.Post("/api/upload-image", controller.Upload)
+	app.Post("/api/logout", controller.Logout)
 	app.Static("/api/uploads", "./uploads")
 
 }
