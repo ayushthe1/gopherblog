@@ -61,7 +61,7 @@ func AllPost(c *fiber.Ctx) error {
 			// Handle unmarshalling error
 			// For example, fallback to fetching from MySQL
 		}
-		log.Println("Getting data from redis , getBlog :", getblog)
+		log.Println("Getting data from redis")
 	}
 
 	if errR != nil {

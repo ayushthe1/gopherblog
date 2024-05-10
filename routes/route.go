@@ -11,13 +11,14 @@ func Setup(app *fiber.App) {
 	app.Post("/api/login", controller.Login)
 	app.Get("/api/allpost", controller.AllPost)
 	app.Get("/api/allpost/:id", controller.DetailPost)
+	app.Get("/api/comments/:id", controller.GetAllComments)
+	app.Post("/api/comments", controller.CreateComment) // Allow unsigned users to also post as anonymous
 	app.Static("/api/uploads", "./uploads")
 	app.Get("/redistest", controller.RedisTest) // for testing, remove later
-	// display all posts on the home page for all users
 
+	// Authenticated Routes
 	app.Use(middleware.IsAuthenticate)
 	app.Post("/api/post", controller.CreatePost)
-	// app.Get("/api/allpost", controller.AllPost)
 	app.Put("/api/updatepost/:id", controller.UpdatePost)
 	app.Get("/api/uniquepost", controller.UniquePost)
 	app.Delete("/api/deletepost/:id", controller.DeletePost)
