@@ -1,0 +1,43 @@
+version:  "3.9"
+
+services:
+
+  db:
+    image:  mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 12345
+      MYSQL_DATABASE: my_database
+
+  redis-db:
+    image:  redis
+    restart: always
+
+  caddy:
+    image: caddy
+    restart: always
+    ports:
+      - 5000:80
+    depends_on:
+      - frontend
+
+  frontend:
+    restart: always
+    ports:
+      - 4000:4000
+    build:
+      context: ./
+      dockerfile: frontend.dockerfile
+  
+  backend:
+    restart: always
+    ports:
+      - 3000:3000
+    depends_on:
+      - db
+    build:
+      context: ./
+      dockerfile: backend.dockerfile
+
+
+

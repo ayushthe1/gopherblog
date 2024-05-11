@@ -26,10 +26,13 @@ func Connect() {
 
 	database, err := gorm.Open(mysql.Open(dsn), &gorm.Config{})
 	if err != nil {
+		log.Println("***********************FAIL******************* ")
 		panic("Could not connect to the database")
 	} else {
-		log.Println("connect successfully")
+		log.Println("connect to mysql successfully")
 	}
+
+	log.Println("***********************CONNECTED TO MYSQL DATABASE******************* ")
 	DB = database
 	database.AutoMigrate(
 		&models.User{},
@@ -37,8 +40,9 @@ func Connect() {
 		&models.Comment{},
 	)
 
+	redisAddress := os.Getenv("REDIS_ADDRESS")
 	rdb := redis.NewClient(&redis.Options{
-		Addr:     "localhost:6379",
+		Addr:     redisAddress,
 		Password: "", // no password set
 		DB:       0,  // use default DB
 	})
@@ -46,12 +50,12 @@ func Connect() {
 	ctx, cancel := context.WithTimeout(context.Background(), 2*time.Second)
 	defer cancel()
 
-	pong, err := rdb.Ping(ctx).Result()
+	_, err = rdb.Ping(ctx).Result()
 	if err != nil {
 		fmt.Println("Error connecting to Redis:", err)
 		return
 	}
-	fmt.Println("Successfully connected to Redis:", pong)
+	log.Println("***********************CONNECTED TO REDIS********************* ")
 
 	RedisClient = rdb
 

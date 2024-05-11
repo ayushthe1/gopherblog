@@ -1,3 +1,4 @@
 .env
 go.sum
 go-backend/uploads/*
+react-frontend/node_modules/*

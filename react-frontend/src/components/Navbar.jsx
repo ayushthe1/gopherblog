@@ -25,6 +25,9 @@ const Navbar = () => {
         //   setMessage(response?.data?.message);
         //   openSnackbar(response?.data?.message);
         localStorage.removeItem("user");
+        // Set cookie expiration date to a time in the past
+        document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
         navigate("/");
       })
       .catch(function (error) {
@@ -35,7 +38,10 @@ const Navbar = () => {
         //console.log(error?.response?.data?.message);
       })
       .then(function () {
-        // always executed
+        localStorage.removeItem("user");
+        localStorage.removeItem("jwt");
+        document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        navigate("/");
       });
   };
   useEffect(() => {

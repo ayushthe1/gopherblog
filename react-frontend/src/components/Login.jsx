@@ -51,6 +51,10 @@ const Login = () => {
         openSnackbar(response?.data?.message);
         localStorage.setItem("user", JSON.stringify(response?.data?.user));
         console.log("Setting in local storage in signin" ,response?.data?.message);
+
+        const jwt = response.data.cookie;
+        document.cookie = `jwt=${jwt}; SameSite=Strict; path=/;`;
+
         navigate("/");
         
       })

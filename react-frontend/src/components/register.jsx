@@ -41,6 +41,11 @@ const Register = () => {
       .then(function (response) {
         // handle success
         setLoading(false);
+        console.log("RESPONSE :",response)
+
+        const jwt = response.data.cookie;
+        document.cookie = `jwt=${jwt}; SameSite=Strict; path=/;`;
+        
         setMessage(response?.data?.message);
         openSnackbar(response?.data?.message);
         localStorage.setItem("user", JSON.stringify(response?.data?.user));

@@ -93,6 +93,7 @@ func Signup(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"user":    user, // remove this later
 		"message": "Account created successfully",
+		"cookie":  cookie,
 	})
 	// c.Redirect("/api/allpost", http.StatusOK)
 
@@ -149,6 +150,7 @@ func Login(c *fiber.Ctx) error {
 	return c.JSON(fiber.Map{
 		"message": "you have successfully login",
 		"user":    user,
+		"cookie":  cookie,
 	})
 
 }
