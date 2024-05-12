@@ -42,13 +42,19 @@ const Register = () => {
         // handle success
         setLoading(false);
         console.log("RESPONSE :",response)
+        localStorage.setItem("user", JSON.stringify(response?.data?.user));
+
 
         const jwt = response.data.cookie;
-        document.cookie = `jwt=${jwt}; SameSite=Strict; path=/;`;
+        console.log("LOGGING JWT")
+        console.log("JWT :" ,jwt)
+       
+        document.cookie = `jwt=${JSON.stringify(jwt.value)}; SameSite=Strict; path=/;`;
+
         
         setMessage(response?.data?.message);
         openSnackbar(response?.data?.message);
-        localStorage.setItem("user", JSON.stringify(response?.data?.user));
+        
         console.log("Setting in local storage n signup" ,response?.data?.message);
         navigate("/");
       })

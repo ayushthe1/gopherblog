@@ -27,6 +27,7 @@ const Navbar = () => {
         localStorage.removeItem("user");
         // Set cookie expiration date to a time in the past
         document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.reload(true); // hard refresh
 
         navigate("/");
       })
@@ -41,6 +42,7 @@ const Navbar = () => {
         localStorage.removeItem("user");
         localStorage.removeItem("jwt");
         document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        window.location.reload(true);
         navigate("/");
       });
   };

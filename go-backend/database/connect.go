@@ -38,6 +38,7 @@ func Connect() {
 		&models.User{},
 		&models.Blog{},
 		&models.Comment{},
+		&models.PasswordReset{},
 	)
 
 	redisAddress := os.Getenv("REDIS_ADDRESS")

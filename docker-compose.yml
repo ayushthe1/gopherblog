@@ -5,9 +5,13 @@ services:
   db:
     image:  mysql
     restart: always
+    ports:
+      - 3306:3306 # exposed only for development. Remove in prod
     environment:
       MYSQL_ROOT_PASSWORD: 12345
       MYSQL_DATABASE: my_database
+    volumes:
+      - $HOME/data/goBlog/mysql:/var/lib/mysql 
 
   redis-db:
     image:  redis

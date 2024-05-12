@@ -75,7 +75,8 @@ func AllPost(c *fiber.Ctx) error {
 			return err
 		}
 
-		err = database.RedisClient.Set(ctx, "products", cachedProducts, 300*time.Second).Err()
+		// cache data for 10 sec
+		err = database.RedisClient.Set(ctx, "products", cachedProducts, 10*time.Second).Err()
 
 		if err != nil {
 			log.Println("err in redis all post", err.Error())
