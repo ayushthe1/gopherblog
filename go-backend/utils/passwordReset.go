@@ -6,14 +6,11 @@ import (
 	"encoding/base64"
 	"fmt"
 	"log"
-	"os"
-	"strconv"
 	"strings"
 	"time"
 
 	"github.com/ayushthe1/blog-backend/database"
 	"github.com/ayushthe1/blog-backend/models"
-	"github.com/go-mail/mail/v2"
 )
 
 type Email struct {
@@ -110,68 +107,6 @@ func String(n int) (string, error) {
 func hash(token string) string {
 	tokenHash := sha256.Sum256([]byte(token))
 	return base64.URLEncoding.EncodeToString(tokenHash[:])
-}
-
-// #sept
-func ForgotPassword(to string, resetURL string) error {
-	log.Println("Inside util.ForgetPassword")
-	email := Email{
-		Subject:   "Reset your password",
-		To:        to,
-		Plaintext: "To reset your password, please visit the following link: " + resetURL,
-		HTML: `<p> To reset your password, please visit the 
-		following link: <a href="` + resetURL + `">` + resetURL + `</a></p>`,
-	}
-
-	err := Send(email)
-	if err != nil {
-		return fmt.Errorf("forgot password email: %w", err)
-	}
-
-	return nil
-
-}
-
-// #tifo
-func Send(email Email) error {
-
-	log.Println("Inside util.Send")
-
-	var config = SMTPConfig{
-		Host:     os.Getenv("SMTP_HOST"),
-		Username: os.Getenv("SMTP_USERNAME"),
-		Password: os.Getenv("SMTP_PASSWORD"),
-	}
-	portStr := os.Getenv("SMTP_PORT")
-	port, err := strconv.Atoi(portStr)
-	config.Port = port
-
-	log.Println("SMTP Config is : ", config.Host, " ", config.Username, " ", config.Password)
-
-	msg := mail.NewMessage()
-	msg.SetHeader("To", email.To)
-	msg.SetHeader("Subject", email.Subject)
-	msg.SetHeader("From", DefaultSender)
-
-	switch {
-	case email.Plaintext != "" && email.HTML != "":
-		msg.SetBody("text/plain", email.Plaintext)
-		msg.AddAlternative("text/html", email.HTML)
-	case email.Plaintext != "":
-		msg.SetBody("text/plain", email.Plaintext)
-	case email.HTML != "":
-		msg.SetBody("text/html", email.HTML)
-	}
-
-	dialer := mail.NewDialer(config.Host, config.Port, config.Username, config.Password)
-
-	err = dialer.DialAndSend(msg)
-	if err != nil {
-		return fmt.Errorf("error in dialandsend: %w", err)
-	}
-
-	log.Println("***********PASSWORD RESET EMAIL SENT****************")
-	return nil
 }
 
 // #mino

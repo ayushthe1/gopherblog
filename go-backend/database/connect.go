@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/ayushthe1/blog-backend/models"
+	rabbit "github.com/ayushthe1/blog-backend/rabbitmq"
 	"github.com/joho/godotenv"
 	redis "github.com/redis/go-redis/v9"
 	"gorm.io/driver/mysql"
@@ -59,5 +60,32 @@ func Connect() {
 	log.Println("***********************CONNECTED TO REDIS********************* ")
 
 	RedisClient = rdb
+
+	// Declare a queue in RabitMQ
+	rabbitMQConnection := rabbit.Connect()
+	defer rabbitMQConnection.Close()
+
+	channelRabbitMQ, err := rabbitMQConnection.Channel()
+	if err != nil {
+		log.Println("Error opening a channel in RabbitMq :", err.Error())
+		return
+	}
+
+	defer channelRabbitMQ.Close()
+
+	_, err = channelRabbitMQ.QueueDeclare(
+		"QueueService1", // queue name
+		true,            // durable
+		false,           // auto delete
+		false,           // exclusive
+		false,           // no wait
+		nil,             // arguments
+	)
+
+	if err != nil {
+		log.Println("Error Declaring Queue in RabbitMq :", err.Error())
+		return
+	}
+	log.Println("************DECLARED A QUEUE IN RABBITMQ****************")
 
 }

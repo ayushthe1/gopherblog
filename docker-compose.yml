@@ -2,6 +2,17 @@ version:  "3.9"
 
 services:
 
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    ports:
+      - 5672:5672   # for sender and consumer connections
+      - 15672:15672 # for serve RabbitMQ GUI
+    volumes:
+      - ${HOME}/dev-rabbitmq/data/:/var/lib/rabbitmq
+      - ${HOME}/dev-rabbitmq/log/:/var/log/rabbitmq
+    restart: always
+
   db:
     image:  mysql
     restart: always
@@ -42,6 +53,19 @@ services:
     build:
       context: ./
       dockerfile: backend.dockerfile
+
+
+  consumer:
+    container_name: consumer
+    environment:
+      AMQP_SERVER_URL: amqp://guest:guest@rabbitmq
+    build:
+      context: ./
+      dockerfile: consumer.dockerfile
+    restart: always
+    depends_on:
+      - backend
+      - rabbitmq
 
 
 

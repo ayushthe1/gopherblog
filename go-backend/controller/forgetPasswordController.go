@@ -5,6 +5,7 @@ import (
 	"net/http"
 	"net/url"
 
+	rabbit "github.com/ayushthe1/blog-backend/rabbitmq"
 	util "github.com/ayushthe1/blog-backend/utils"
 	"github.com/gofiber/fiber/v2"
 )
@@ -57,17 +58,25 @@ func ProcessForgotPassword(c *fiber.Ctx) error {
 	// encode the token in url (CHANGE THE URL LATER IN PROD)
 	resetURL := "https://ayushsharma.co.in/reset-pw?" + vals.Encode()
 
+	// DELEGATE THIS TO RABBITMQ
 	// send the mail to the user with the reset_url
-	err = util.ForgotPassword(data.Email, resetURL)
+	// err = util.ForgotPassword(data.Email, resetURL)
+	// if err != nil {
+	// 	log.Println(err)
+	// 	c.Status(501)
+	// 	return c.JSON(fiber.Map{
+	// 		"error in util.ForgotPassword ": err.Error(),
+	// 	})
+	// }
+
+	err = rabbit.PublishToQueue(data.Email, resetURL)
 	if err != nil {
-		log.Println(err)
-		c.Status(501)
-		return c.JSON(fiber.Map{
-			"error in util.ForgotPassword ": err.Error(),
-		})
+		msg := "Error : Publishing email & resetURL to queue"
+		log.Println(msg)
+		return err
 	}
 
-	log.Println("***** PROCESSFORGOTPASSWORD EXECUTED SUCESSFULLY *******")
+	log.Println("** PROCESSFORGOTPASSWORD (AND SO PUBLISHING TO QUEUE) EXECUTED SUCESSFULLY **")
 
 	c.Status(200)
 	return c.JSON(fiber.Map{
