@@ -47,15 +47,15 @@ const Login = () => {
       .then(function (response) {
         // handle success
         setLoading(false);
-        console.log("RESPONSE login:",response)
+        console.log("ReSPONSE login:",response)
         setMessage(response?.data?.message);
         openSnackbar(response?.data?.message);
         localStorage.setItem("user", JSON.stringify(response?.data?.user));
         console.log("Setting in local storage in signin" ,response?.data?.message);
 
-        const domain = "api.ayushsharma.co.in";
+        const domain = ".ayushsharma.co.in"
 
-        document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+        // document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 
         const jwt = response.data.cookie;
         document.cookie = `jwt=${JSON.stringify(jwt.value)}; SameSite=Strict; path=/; domain=${domain}`;

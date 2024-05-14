@@ -51,7 +51,7 @@ const Register = () => {
         console.log("LOGGING JWT")
         console.log("JWT :" ,jwt)
 
-        const domain = "api.ayushsharma.co.in";
+        const domain = ".ayushsharma.co.in"
         document.cookie = `jwt=${JSON.stringify(jwt.value)}; SameSite=Strict; path=/; domain=${domain}`;
 
         setMessage(response?.data?.message);
