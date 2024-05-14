@@ -37,7 +37,7 @@ const Register = () => {
       //phone: parseInt(data.phone),
     };
     axios
-      .post(`http://localhost:3000/api/register`, { ...body })
+      .post(`https://api.ayushsharma.co.in/api/register`, { ...body })
       .then(function (response) {
         // handle success
         setLoading(false);

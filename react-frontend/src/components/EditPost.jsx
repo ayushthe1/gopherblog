@@ -34,7 +34,7 @@ const EditPost = () => {
   const singleBlog = () => {
     axios
       .get(
-        `http://localhost:3000/api/allpost/${id}`,
+        `https://api.ayushsharma.co.in/api/allpost/${id}`,
         //{},
         {
           withCredentials: true,
@@ -75,7 +75,7 @@ const EditPost = () => {
     };
     axios
       .put(
-        `http://localhost:3000/api/updatepost/${id}`,
+        `https://api.ayushsharma.co.in/api/updatepost/${id}`,
         { ...body },
         {
           withCredentials: true,

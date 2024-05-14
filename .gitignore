@@ -1,4 +1,5 @@
 .env
-go.sum
 go-backend/uploads/*
 react-frontend/node_modules/*
+
+# git --work-tree=$HOME/apps/gopherblog.com     --git-dir=$HOME/repos/gopherblog.git     checkout -f main

@@ -28,7 +28,7 @@ const PersonalBlog = () => {
     setLoading(true);
     axios
       .get(
-        `http://localhost:3000/api/uniquepost`,
+        `https://api.ayushsharma.co.in/api/uniquepost`,
 
         {
           withCredentials: true,
@@ -68,7 +68,7 @@ const PersonalBlog = () => {
     setDeleteLoading(true);
     axios
       .delete(
-        `http://localhost:3000/api/deletepost/${blog.id}`,
+        `https://api.ayushsharma.co.in/api/deletepost/${blog.id}`,
 
         {
           withCredentials: true,
@@ -143,7 +143,7 @@ const PersonalBlog = () => {
                     <img
                       alt="Placeholder"
                       className="block rounded-full w-7 h-7"
-                      src="http://localhost:3000/api/uploads/logo.png"
+                      src="https://api.ayushsharma.co.in/api/uploads/logo.png"
                     />
                     <p className="ml-2 text-sm">
                       {blog?.user?.first_name} {blog?.user?.last_name}

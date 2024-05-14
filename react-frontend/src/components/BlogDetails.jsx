@@ -23,7 +23,7 @@ const BlogDetail = () => {
   const singleBlog = () => {
     axios
       .get(
-        `http://localhost:3000/api/allpost/${id}`,
+        `https://api.ayushsharma.co.in/api/allpost/${id}`,
         //{},
         {
           withCredentials: true,

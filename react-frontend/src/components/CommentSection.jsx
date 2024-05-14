@@ -8,7 +8,7 @@ const CommentSection = ({ blogId, commenterName }) => {
   const { id } = useParams();
   const fetchComments = () => {
     axios
-      .get(`http://localhost:3000/api/comments/${id}`)
+      .get(`https://api.ayushsharma.co.in/api/comments/${id}`)
       .then((response) => {
         console.log('fetch comments response:', response)
         setComments(response.data.data);
@@ -30,7 +30,7 @@ const CommentSection = ({ blogId, commenterName }) => {
         desc: newComment,
       };
     axios
-      .post(`http://localhost:3000/api/comments/`, requestBody,{
+      .post(`https://api.ayushsharma.co.in/api/comments/`, requestBody,{
         withCredentials: true,
       })
       .then((response) => {

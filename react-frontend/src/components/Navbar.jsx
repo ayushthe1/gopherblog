@@ -13,7 +13,7 @@ const Navbar = () => {
   const logOut = () => {
     axios
       .post(
-        `http://localhost:3000/api/logout`,
+        `https://api.ayushsharma.co.in/api/logout`,
         {},
         {
           withCredentials: true,

@@ -74,7 +74,7 @@ const CreateBlog = () => {
     };
 
     axios
-      .post("http://localhost:3000/api/upload-image", formData, config)
+      .post("https://api.ayushsharma.co.in/api/upload-image", formData, config)
       .then((response) => {
         setLoadingData(false);
         setImageData(response?.data?.url);
@@ -96,7 +96,7 @@ const CreateBlog = () => {
     };
 
     axios
-      .post("http://localhost:3000/api/post", body, {
+      .post("https://api.ayushsharma.co.in/api/post", body, {
         withCredentials: true,
       })
       .then((response) => {

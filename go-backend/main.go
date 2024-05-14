@@ -22,7 +22,7 @@ func main() {
 	app := fiber.New()
 
 	app.Use(cors.New(cors.Config{
-		AllowOrigins:     "http://gopherblog.ayushsharma.co.in ,http://localhost:4000 ", // Allow requests from localhost:4000
+		AllowOrigins:     "https://gopherblog.ayushsharma.co.in, https://api.ayushsharma.co.in, http://localhost:4000 ",
 		AllowHeaders:     "Origin, Content-Type, Accept, Authorization",
 		AllowCredentials: true,
 	}))

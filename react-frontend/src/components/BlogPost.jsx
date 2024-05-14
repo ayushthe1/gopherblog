@@ -8,7 +8,7 @@ const BlogPost = () => {
     setLoading(true);
     axios
       .get(
-        `http://localhost:3000/api/allpost`,
+        `https://api.ayushsharma.co.in/api/allpost`,
         //{},
         {
           withCredentials: true,
