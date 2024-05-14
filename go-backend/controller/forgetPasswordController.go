@@ -56,18 +56,7 @@ func ProcessForgotPassword(c *fiber.Ctx) error {
 	}
 
 	// encode the token in url (CHANGE THE URL LATER IN PROD)
-	resetURL := "https://ayushsharma.co.in/reset-pw?" + vals.Encode()
-
-	// DELEGATE THIS TO RABBITMQ
-	// send the mail to the user with the reset_url
-	// err = util.ForgotPassword(data.Email, resetURL)
-	// if err != nil {
-	// 	log.Println(err)
-	// 	c.Status(501)
-	// 	return c.JSON(fiber.Map{
-	// 		"error in util.ForgotPassword ": err.Error(),
-	// 	})
-	// }
+	resetURL := "https://gopherblog.ayushsharma.co.in/reset-pw?" + vals.Encode()
 
 	err = rabbit.PublishToQueue(data.Email, resetURL)
 	if err != nil {
