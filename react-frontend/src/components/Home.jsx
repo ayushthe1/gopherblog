@@ -33,7 +33,7 @@ const Home = () => {
                   View All Posts
                 </a>
               </div>
-              <div className="rounded-md shadow">
+              <div className="mt-3 sm:mt-0 sm:ml-3">
                 <a
                   href="/create"
                   className="w-full flex items-center justify-center px-8 py-3 border border-transparent text-base leading-6 font-regular rounded-md text-white bg-purple-500 hover:bg-purple-400 focus:outline-none focus:border-purple-600 focus:shadow-outline-purple transition duration-150 ease-in-out md:py-4 md:px-10"
@@ -58,6 +58,7 @@ const Home = () => {
       </div>
     </>
   );
-};
-
-export default Home;
+  };
+  
+  export default Home;
+  

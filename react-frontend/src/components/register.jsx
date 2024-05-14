@@ -44,14 +44,16 @@ const Register = () => {
         console.log("RESPONSE :",response)
         localStorage.setItem("user", JSON.stringify(response?.data?.user));
 
+        document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
 
         const jwt = response.data.cookie;
         console.log("LOGGING JWT")
         console.log("JWT :" ,jwt)
-       
-        document.cookie = `jwt=${JSON.stringify(jwt.value)}; SameSite=Strict; path=/;`;
 
-        
+        const domain = "api.ayushsharma.co.in";
+        document.cookie = `jwt=${JSON.stringify(jwt.value)}; SameSite=Strict; path=/; domain=${domain}`;
+
         setMessage(response?.data?.message);
         openSnackbar(response?.data?.message);
         

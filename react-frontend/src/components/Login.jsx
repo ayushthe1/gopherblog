@@ -53,9 +53,12 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(response?.data?.user));
         console.log("Setting in local storage in signin" ,response?.data?.message);
 
+        const domain = "api.ayushsharma.co.in";
+
         document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+
         const jwt = response.data.cookie;
-        document.cookie = `jwt=${JSON.stringify(jwt.value)}; SameSite=Strict; path=/;`;
+        document.cookie = `jwt=${JSON.stringify(jwt.value)}; SameSite=Strict; path=/; domain=${domain}`;
 
         navigate("/");
         
@@ -105,7 +108,7 @@ const Login = () => {
             )}
           </div>
           <div className="flex items-center justify-between">
-            <Link to="/forgot-password" className="text-sm text-blue-500 hover:text-blue-700">Forgot Password?</Link>
+            <Link to="/forget-pw" className="text-sm text-blue-500 hover:text-blue-700">Forgot Password?</Link>
             <button
               type="submit"
               className={`px-4 py-2 bg-indigo-600 text-white font-bold rounded hover:bg-indigo-700 focus:outline-none ${loading ? 'opacity-50 cursor-not-allowed' : ''}`}
