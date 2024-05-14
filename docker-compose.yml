@@ -57,7 +57,7 @@ services:
       context: ./
       dockerfile: backend.dockerfile
     volumes:
-      - $HOME/data/gopherblog.com/uploads:/uploads
+      - $HOME/data/gopherblog.com/uploads:/app/uploads
 
 
   consumer:
