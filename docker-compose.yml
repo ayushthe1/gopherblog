@@ -32,7 +32,10 @@ services:
     image: caddy
     restart: always
     ports:
-      - 5000:80
+      - 80:80
+      - 443:443
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile
     depends_on:
       - frontend
 
@@ -53,6 +56,8 @@ services:
     build:
       context: ./
       dockerfile: backend.dockerfile
+    volumes:
+      - $HOME/data/gopherblog.com/uploads:/uploads
 
 
   consumer:
