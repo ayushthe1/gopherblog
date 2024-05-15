@@ -135,11 +135,61 @@
 // };
 
 // export default Navbar;
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import axios from "axios";
+import { useNavigate } from "react-router-dom";
+
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [userData, setUserData] = useState();
+  const [loading, setLoading] = useState(false);
+
+  const navigate = useNavigate();
+
+  useEffect(() => {
+        const User = localStorage.getItem("user");
+        const parseUser = JSON.parse(User);
+        setUserData(User);
+      }, [userData]);
+
+      const logOut = () => {
+            axios
+              .post(
+                `https://api.ayushsharma.co.in/api/logout`,
+                {},
+                {
+                  withCredentials: true,
+                }
+              )
+              .then(function (response) {
+                // handle success
+                setLoading(false);
+                //   setMessage(response?.data?.message);
+                //   openSnackbar(response?.data?.message);
+                localStorage.removeItem("user");
+                // Set cookie expiration date to a time in the past
+                document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                window.location.reload(true); // hard refresh
+        
+                navigate("/");
+              })
+              .catch(function (error) {
+                // handle error
+                setLoading(false);
+                //   setMessage(error?.response?.data?.message);
+                //   openSnackbar(error?.response?.data?.message);
+                console.log(error?.response?.data?.message);
+              })
+              .then(function () {
+                localStorage.removeItem("user");
+                localStorage.removeItem("jwt");
+                document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+                window.location.reload(true);
+                navigate("/");
+              });
+          };
 
   const toggleMenu = () => {
     setIsOpen(!isOpen);
@@ -207,12 +257,29 @@ const Navbar = () => {
             >
               My Post
             </Link>
-            <Link
+            <div>
+             {userData ? (
+              <div
+                onClick={logOut}
+                className="text-base text-white hover:text-gray-200 block sm:inline-block"
+              >
+                Log Out
+              </div>
+            ) : (
+              <Link
+                to="/login"
+                className="text-base text-white hover:text-gray-200 block sm:inline-block"
+              >
+                Login
+              </Link>
+            )}
+          </div>
+            {/* <Link
               to="/login"
               className="text-base text-white hover:text-gray-200 block sm:inline-block"
             >
               Login
-            </Link>
+            </Link> */}
           </div>
         </div>
       </div>

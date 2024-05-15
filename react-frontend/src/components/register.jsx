@@ -150,7 +150,7 @@ const Register = () => {
               </span>
             )}
           </div>
-          <div className="mb-4">
+          {/* <div className="mb-4">
             <label className="block text-sm mb-1">Phone No:</label>
             <input
               type="text"
@@ -165,7 +165,7 @@ const Register = () => {
                 Phone No is required
               </span>
             )}
-          </div>
+          </div> */}
           <button
             className={`w-full mt-6 px-4 py-2 bg-blue-500 text-white font-bold rounded hover:bg-blue-700 focus:outline-none`}
             disabled={loading}

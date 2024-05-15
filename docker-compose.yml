@@ -19,8 +19,8 @@ services:
     ports:
       - 3306:3306 # exposed only for development. Remove in prod
     environment:
-      MYSQL_ROOT_PASSWORD: 12345
-      MYSQL_DATABASE: my_database
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
     volumes:
       - $HOME/data/goBlog/mysql:/var/lib/mysql 
 
