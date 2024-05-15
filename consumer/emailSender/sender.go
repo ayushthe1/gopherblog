@@ -28,14 +28,14 @@ type SMTPConfig struct {
 
 const (
 	// DefaultSender is the default email address to send emails from.
-	DefaultSender = "keshavkumarr07@gmail.com"
+	DefaultSender = "ayush@ayushsharma.co.in"
 )
 
 // #sept
 func ForgotPassword(to string, resetURL string) error {
 	log.Println("Inside sender.ForgetPassword")
 	email := Email{
-		Subject:   "Reset your password",
+		Subject:   "Reset your password at Gopherblog",
 		To:        to,
 		Plaintext: "To reset your password, please visit the following link: " + resetURL,
 		HTML: `<p> To reset your password, please visit the 

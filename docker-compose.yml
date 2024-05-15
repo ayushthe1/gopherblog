@@ -41,16 +41,12 @@ services:
 
   frontend:
     restart: always
-    ports:
-      - 4000:4000
     build:
       context: ./
       dockerfile: frontend.dockerfile
   
   backend:
     restart: always
-    ports:
-      - 3000:3000
     depends_on:
       - db
     build:
