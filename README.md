@@ -4,10 +4,14 @@
 This project is a fully-featured blog website built using a microservices architecture. Users can sign up, create, update, and publish blogs. Other users can comment on the blogs. The project uses a variety of technologies and tools to ensure scalability, efficiency, and a seamless user experience.
 
 
+https://github.com/ayushthe1/gopherblog/assets/114604338/f17473b0-3e68-4af1-bb68-0844d1ecd61e
+
+## Rich text editor support for creating comments and posts
+![image](https://github.com/ayushthe1/gopherblog/assets/114604338/581157f4-ebf4-471a-8a1c-256674290190)
+![image](https://github.com/ayushthe1/gopherblog/assets/114604338/03fde93b-546b-4e8d-9498-ed16c0c198fd)
 
 ## Architecture
 ![gopherblog-architecture](https://github.com/ayushthe1/gopherblog/assets/114604338/ff76e0d8-b4f1-4289-a636-a810d677584c)
-
 
 
 ## Technologies Used
@@ -15,7 +19,7 @@ This project is a fully-featured blog website built using a microservices archit
 - **Backend**: Golang
 - **Frontend**: React
 - **Database**: PostgreSQL
-- **Cache**: Redis
+- **For Caching**: Redis
 - **Messaging Queue**: RabbitMQ
 - **Deployment**: Docker, AWS
 - **Email Service**: Mailtrap
