@@ -28,7 +28,7 @@ const PersonalBlog = () => {
     setLoading(true);
     axios
       .get(
-        `http://localhost:3000/api/uniquepost`,
+        `https://api.ayushsharma.co.in/api/uniquepost`,
 
         {
           withCredentials: true,
@@ -68,7 +68,7 @@ const PersonalBlog = () => {
     setDeleteLoading(true);
     axios
       .delete(
-        `http://localhost:3000/api/deletepost/${blog.id}`,
+        `https://api.ayushsharma.co.in/api/deletepost/${blog.id}`,
 
         {
           withCredentials: true,

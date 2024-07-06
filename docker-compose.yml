@@ -44,8 +44,7 @@ services:
     build:
       context: ./
       dockerfile: frontend.dockerfile
-    ports:
-      - 4000:4000
+
   
   backend:
     restart: always
@@ -56,8 +55,6 @@ services:
       dockerfile: backend.dockerfile
     volumes:
       - $HOME/data/gopherblog.com/uploads:/app/uploads
-    ports:
-      - 3000:3000
 
 
   email-consumer:

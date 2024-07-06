@@ -26,7 +26,7 @@ const ForgetPasswordForm = () => {
     e.preventDefault();
 
     try {
-      const response = await axios.post("http://localhost:3000/api/forget-pw", {
+      const response = await axios.post("https://api.ayushsharma.co.in/api/forget-pw", {
         email,
       });
 
