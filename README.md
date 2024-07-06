@@ -1,7 +1,7 @@
 # GopherBlog
 
 ## Overview
-This project is a fully-featured blog website built using a microservices architecture. Users can sign up, create, update, and publish blogs. Other users can comment on the blogs. The project uses a variety of technologies and tools to ensure scalability, efficiency, and a seamless user experience.
+This project is a fully-featured blog website built using a microservices architecture. Users can sign up, create, update, and publish blogs. Other users can comment on the blogs. The project uses a variety of technologies and tools to ensure scalability, efficiency, and a seamless user experience. The website is deployed live on AWS . Link : https://gopherblog.ayushsharma.co.in/
 
 
 https://github.com/ayushthe1/gopherblog/assets/114604338/f17473b0-3e68-4af1-bb68-0844d1ecd61e
