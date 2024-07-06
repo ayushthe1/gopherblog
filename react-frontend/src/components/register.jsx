@@ -37,7 +37,7 @@ const Register = () => {
       //phone: parseInt(data.phone),
     };
     axios
-      .post(`https://api.ayushsharma.co.in/api/register`, { ...body })
+      .post(`http://localhost:3000/api/register`, { ...body })
       .then(function (response) {
         // handle success
         setLoading(false);
@@ -51,7 +51,8 @@ const Register = () => {
         console.log("LOGGING JWT")
         console.log("JWT :" ,jwt)
 
-        const domain = ".ayushsharma.co.in"
+        // const domain = ".ayushsharma.co.in"
+        const domain = ""
         document.cookie = `jwt=${JSON.stringify(jwt.value)}; SameSite=Strict; path=/; domain=${domain}`;
 
         setMessage(response?.data?.message);

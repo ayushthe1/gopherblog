@@ -52,7 +52,7 @@ func Upload(c *fiber.Ctx) error {
 
 	log.Println("File successfully created")
 	return c.JSON(fiber.Map{
-		"url": "https://api.ayushsharma.co.in/api/uploads/" + fileName,
+		"url": "http://localhost:3000/api/uploads/" + fileName,
 	})
 
 }

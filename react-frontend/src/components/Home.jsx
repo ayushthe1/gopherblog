@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import "./Home.css";
 
-import BlogPost from "./BlogPost";
+import AllBlogPost from "./AllBlogPost";
 const Home = () => {
   const [userData, setUserData] = useState();
 
@@ -54,7 +54,7 @@ const Home = () => {
         </main>
       </div>
       <div id="allblogs">
-        <BlogPost />
+        <AllBlogPost />
       </div>
     </>
   );

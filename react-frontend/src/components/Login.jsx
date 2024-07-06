@@ -38,7 +38,7 @@ const Login = () => {
     };
     axios
       .post(
-        `https://api.ayushsharma.co.in/api/login`,
+        `http://localhost:3000/api/login`,
         { ...body },
         {
           withCredentials: true,
@@ -53,7 +53,8 @@ const Login = () => {
         localStorage.setItem("user", JSON.stringify(response?.data?.user));
         console.log("Setting in local storage in signin" ,response?.data?.message);
 
-        const domain = ".ayushsharma.co.in"
+        // const domain = ".ayushsharma.co.in"
+        const domain = ""
 
         // document.cookie = "jwt=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
 

@@ -8,7 +8,7 @@ import CreateBlog from "./components/CreateBlog";
 import Navbar from "./components/Navbar";
 import BlogDetail from "./components/BlogDetails";
 import PersonalBlog from "./components/PersonalBlog";
-import EditPost from "./components/EditPost";
+import EditBlog from "./components/EditBlog";
 import ForgetPasswordForm from "./components/ForgetPassword";
 import ResetPasswordForm from "./components/ResetPasswordForm";
 function App() {
@@ -23,7 +23,7 @@ function App() {
           <Route exact path="/create" element={<CreateBlog />} />
           <Route exact path="/detail/:id" element={<BlogDetail />} />
           <Route exact path="/personal" element={<PersonalBlog />} />
-          <Route exact path="/edit/:id" element={<EditPost />} />
+          <Route exact path="/edit/:id" element={<EditBlog />} />
           <Route exact path="/forget-pw" element={<ForgetPasswordForm />} />
           <Route exact path="/reset-pw" element={<ResetPasswordForm />} />
         </Routes>

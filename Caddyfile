@@ -1,7 +1,14 @@
-gopherblog.ayushsharma.co.in {
-    reverse_proxy frontend:4000
-}
+# gopherblog.ayushsharma.co.in {
+#     reverse_proxy frontend:4000
+# }
 
 api.ayushsharma.co.in {
+    reverse_proxy backend:3000
+}
+
+:4000 {
+    reverse_proxy frontend:4000
+}
+:3000 {
     reverse_proxy backend:3000
 }

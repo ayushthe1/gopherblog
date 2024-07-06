@@ -26,7 +26,7 @@ const ResetPasswordForm = () => {
     }
 
     try {
-      const response = await axios.post('https://api.ayushsharma.co.in/api/reset-pw', { password, token });
+      const response = await axios.post('http://localhost:3000/api/reset-pw', { password, token });
 
       if (response.status === 200) {
         setMessage('Your password was changed successfully. Please login again.');

@@ -13,7 +13,7 @@
 //   const logOut = () => {
 //     axios
 //       .post(
-//         `https://api.ayushsharma.co.in/api/logout`,
+//         `http://localhost:3000/api/logout`,
 //         {},
 //         {
 //           withCredentials: true,
@@ -157,7 +157,7 @@ const Navbar = () => {
       const logOut = () => {
             axios
               .post(
-                `https://api.ayushsharma.co.in/api/logout`,
+                `http://localhost:3000/api/logout`,
                 {},
                 {
                   withCredentials: true,

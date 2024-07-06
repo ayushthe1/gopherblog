@@ -5,7 +5,7 @@ import (
 	"os"
 	"strings"
 
-	"github.com/ayushthe1/consumer/emailSender"
+	"github.com/ayushthe1/email-consumer/emailSender"
 	"github.com/streadway/amqp"
 )
 

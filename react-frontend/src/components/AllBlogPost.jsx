@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
-const BlogPost = () => {
+const AllBlogPost = () => {
   const [blogData, setBlogData] = useState();
   const [loading, setLoading] = useState(false);
   const allBlog = () => {
     setLoading(true);
     axios
       .get(
-        `https://api.ayushsharma.co.in/api/allpost`,
+        `http://localhost:3000/api/allpost`,
         //{},
         {
           withCredentials: true,
@@ -100,4 +100,4 @@ const BlogPost = () => {
   );
 };
 
-export default BlogPost;
+export default AllBlogPost;

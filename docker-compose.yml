@@ -44,6 +44,8 @@ services:
     build:
       context: ./
       dockerfile: frontend.dockerfile
+    ports:
+      - 4000:4000
   
   backend:
     restart: always
@@ -54,15 +56,17 @@ services:
       dockerfile: backend.dockerfile
     volumes:
       - $HOME/data/gopherblog.com/uploads:/app/uploads
+    ports:
+      - 3000:3000
 
 
-  consumer:
-    container_name: consumer
+  email-consumer:
+    container_name: email-consumer
     environment:
       AMQP_SERVER_URL: amqp://guest:guest@rabbitmq
     build:
       context: ./
-      dockerfile: consumer.dockerfile
+      dockerfile: email-consumer.dockerfile
     restart: always
     depends_on:
       - backend
